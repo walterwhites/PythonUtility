@@ -13,7 +13,7 @@ class Startbuild(Command):
     }
 
     def formatOption(self, option):
-        if self._attributes[option].getValue(self._attributes[option]):
+        if self._attributes[option].getValue(self._attributes[option]) is not None:
             self._attributes[option].format(self._attributes[option])
         return self
 

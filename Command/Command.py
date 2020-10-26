@@ -1,3 +1,4 @@
+import subprocess
 from typing import Dict, Any
 
 from Command.Startbuild.Option.Option import Option
@@ -23,3 +24,6 @@ class Command:
 
     def getCommand(self):
         return self._name
+
+    def launchCommand(self, command):
+        output = subprocess.check_output(['bash', '-c', command])

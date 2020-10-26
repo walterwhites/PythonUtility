@@ -3,7 +3,7 @@
 from Completer.ConfirmCompleter import ConfirmCompleter
 from Completer.SuiteCompleter import SuiteCompleter
 from Command.Startbuild.Startbuild import Startbuild
-from functions import *
+from Command.Startbuild.functions import *
 
 startbuild = Startbuild()
 os.system('clear')
@@ -15,7 +15,6 @@ startbuild.setOption("s", integer_input(stage_number))
 confirmCompleter = ConfirmCompleter()
 suiteCompleter = SuiteCompleter()
 
-startbuild.getOption("s").getValue(startbuild.getOption("s"))
 suiteQs = question("Do you want run all tests? (y or n)", confirmCompleter)
 if suiteQs in "n":
     suite = question("What test you wanna run? \n"
@@ -28,12 +27,23 @@ if branchQs in "n":
     branch = str(input("Which branch you wanna use? \n > "))
     startbuild.setOption("b", branch)
 
-question("Can you confirm ? (y or n) \n"
-         "stage = " + startbuild.getOption("s").getValue(startbuild.getOption("s")) +
-         "\ntests = " + startbuild.getOption("p").getValue(startbuild.getOption("p")) +
-         "\nbranch = " + startbuild.getOption("b").getValue(startbuild.getOption("b"))
-         , confirmCompleter)
+s = startbuild.getOption("s").getValue(startbuild.getOption("s"))
+p = startbuild.getOption("p").getValue(startbuild.getOption("p"))
+b = startbuild.getOption("b").getValue(startbuild.getOption("b"))
 
+p = p if p is not None else "All"
+b = b if b is not None else "master"
+
+print(s)
+print(p)
+print(b)
+run = question("Can you confirm ? (y or n) \n"
+         "stage = " + s +
+         "\ntests = " + p +
+         "\nbranch = " + b, confirmCompleter)
 
 startbuild.build()
 print(startbuild.getCommand())
+
+if run in "y":
+    startbuild.launchCommand(startbuild.getCommand())
