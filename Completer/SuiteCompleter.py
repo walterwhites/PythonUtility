@@ -2,14 +2,11 @@ from Completer.Completer import Completer
 
 
 class SuiteCompleter(Completer):
-    suites = ['acceptance', 'api', 'integration']
+    choices = ["acceptance", "api", "integration",
+               "api/Analytics", "api/Organization", "api/TeamOrganization", "api/UserCreateFinancialAid",
+               "api/LearningContent", "api/Student", "api/UserAvailability", "api/UserExpectedBenefits",
+               "api/UserSupport", "api/Offers", "api/TeamInvitations", "api/UserBirthInformation",
+               "api/UserOrganization", "acceptance/Mentorship/", "acceptance/Partnerships/", "acceptance/visual/"]
 
     def __init__(self):
         super().__init__()
-
-    def complete(self, text, state):
-        options = [x for x in self.suites if x.startswith(text)]
-        try:
-            return options[state]
-        except IndexError:
-            return None

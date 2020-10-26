@@ -1,4 +1,5 @@
-from pip._vendor.distlib.compat import raw_input
+import os
+
 
 
 def integer_input(value):
@@ -13,7 +14,12 @@ def integer_input(value):
         integer_input(val)
 
 
+def get_stage(value):
+    return "-s stage-oc-" + value
+
+
 def question(name, completer):
+    os.system('clear')
     completer.initCompleter(completer.complete)
-    answer = raw_input(name)
-    completer.autocomplete()
+    answer = completer.autocomplete(completer, name)
+    return answer
